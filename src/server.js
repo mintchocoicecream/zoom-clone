@@ -14,28 +14,14 @@ app.get("/*", (_, res) => res.redirect("/"));
 const server = http.createServer(app);
 const io = SocketIO(server);
 
-io.on("connection", socket => {
-    console.log(socket);
+io.on("connection", (socket) => {
+    socket.on("enter_room", (msg, done) => {
+        console.log(msg);
+        setTimeout(()=> {
+            done();
+        }, 10000);
+    });
 })
-
-// const wss = new WebSocket.Server({ server });
-// const sockets = [];
-
-// wss.on("connection", (socket) => {
-//     sockets.push(socket);
-//     socket["nickname"] = "Anon";
-//     console.log("Connected to Browser ✅");
-//     socket.on("close",() => {console.log("Disconnected to Server ❌")});
-//     socket.on("message", (msg) => {
-//         const message = JSON.parse(msg);
-//         switch(message.type){
-//             case "new_message": 
-//                 sockets.forEach((aSocket) => {aSocket.send(`${socket.nickname}: ${(message.payload).toString("utf8")}`)});
-//             case "nickname":
-//                 socket["nickname"] = message.payload;
-//         }
-//     });
-// });
 
 const handleListen = () => console.log(`Listening on http://localhost:3000`);
 server.listen(3000, handleListen);
