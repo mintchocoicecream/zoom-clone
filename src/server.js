@@ -15,11 +15,9 @@ const server = http.createServer(app);
 const io = SocketIO(server);
 
 io.on("connection", (socket) => {
-    socket.on("enter_room", (msg, done) => {
-        console.log(msg);
-        setTimeout(()=> {
-            done();
-        }, 10000);
+    socket.on("enter_room", (roomName, done) => {
+        socket.join(roomName);
+        done();
     });
 })
 
