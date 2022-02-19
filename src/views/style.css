@@ -6,7 +6,7 @@
     --box-shadow: 2px 2px 10px;
     --color: #118bee;
     --color-accent: #118bee15;
-    --color-bg: #fff;
+    --color-bg: #FFD601;
     --color-bg-secondary: #e9e9e9;
     --color-link: #118bee;
     --color-secondary: #920de9;
@@ -41,32 +41,139 @@
         --color-text-secondary: #aaa;
     }
 }
-/* Custom */
-#showname {
-    /* min-width: var(--width-content); */
+
+
+/******** Custom ********/
+
+/* header */
+#title h1 {
+    /* color: #fff; */
+    font-family: 'Tourney', cursive;
+    font-size: 60px;
+}
+
+/* welcome */
+#welcome form {
+    border: 5px solid var(--color-bg-secondary);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow) #eb9b0a;
+    display: block;
     min-width: var(--width-card);
-    text-align: var(--justify-normal);
-}
-
-#showname div {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-}
-
-#showname h3 {
+    padding: 1.5rem;
     text-align: center;
-    display: inline-block;
 }
 
-#showname button {
+#welcome input {
+    font-family: var(--font-family);
+    font-weight: 600;
+}
+
+#welcome input[type=text]:focus {
+    border: 5px solid #f4511e;
+    font-family: var(--font-family);
+}
+
+#welcome button {
+    display: inline-block;
+    border-radius: var(--border-radius);
+    background-color: #f4511e;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: medium;
+    font-weight: bold;
+    font-family: var(--font-family);
+    padding: 0.2rem 0.8rem;
+    margin: 0.5rem 0;
+    margin-left: 10px;
+    transition: all 0.5s;
+    cursor: pointer;
+    line-height: var(--line-height);
+  }
+  
+#welcome button span {
+    cursor: pointer;
+    display: inline-block;
     position: relative;
-    right: 0px;
+    transition: 0.5s;
+}
+  
+#welcome button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+  
+#welcome button:hover span {
+    padding-right: 25px;
+}
+  
+#welcome button:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+#cntrooms h4{
+    font-family: 'Tourney', cursive;
+    font-size: 30px;
+    text-align: center;
 }
 
 #cntrooms ul {
-    list-style-image: url("https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbTZhZJ%2Fbtq6RMWWdrb%2FThqh4MzZVqAPV3TbyK4nSk%2Fimg.gif");
+    text-align: -webkit-center;
 }
+
+#cntrooms p {
+    padding-inline-start: 40px;
+    font-weight: 600;
+    color: whitesmoke;
+    background-color: #303030;
+    border: 3px solid #303030;
+    width: 300px;
+    text-align:left;
+    list-style-type: none;
+    margin-bottom: 5px;
+    padding: 10px;
+    padding-left: 50px;
+}
+
+/* gird div */
+#grid {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 10px;
+    padding: 10px;
+    justify-items: center;
+}
+
+#grid h3 {
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+
+/* nickname button */
+/* #nickName button {
+    display: inline-block;
+    border-radius: var(--border-radius);
+    background-color: #f4511e;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: medium;
+    font-weight: bold;
+    font-family: var(--font-family);
+    padding: 0.2rem 0.8rem;
+    margin: 0.5rem 0;
+    margin-left: 10px;
+    transition: all 0.5s;
+    cursor: pointer;
+    line-height: var(--line-height);
+} */
+
 
 
 /* Layout */
@@ -385,21 +492,21 @@ button[disabled]:hover {
     filter: none;
 }
 
-form {
-    border: 1px solid var(--color-bg-secondary);
+/* form { */
+    /* border: 5px solid var(--color-bg-secondary);
     border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow) var(--color-shadow);
-    display: block;
+    box-shadow: var(--box-shadow) #eb9b0a;
+    display: block; */
     /* max-width: var(--width-card-wide); */
-    min-width: var(--width-card);
+    /* min-width: var(--width-card);
     padding: 1.5rem;
     text-align: var(--justify-normal);
-}
+} */
 
 form header {
     margin: 1.5rem 0;
     padding: 1.5rem 0;
-}
+} */
 
 input,
 label,

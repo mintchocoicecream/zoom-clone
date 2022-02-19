@@ -5,6 +5,7 @@ const muteBtn = document.getElementById("mute");
 const cameraBtn = document.getElementById("camera");
 const camerasSelect = document.getElementById("cameras");
 const call = document.getElementById("call");
+const cntRooms = document.getElementById("cntrooms");
 
 call.hidden = true;
 
@@ -100,13 +101,14 @@ cameraBtn.addEventListener("click", handleCameraClick);
 camerasSelect.addEventListener("input", handleCameraChange);
 
 
-// Welcome From (join a room)
+// Welcome Form (join a room)
 
 const welcome = document.getElementById("welcome");
 const welcomeForm = welcome.querySelector("form");
 
 async function initCall() {
     welcome.hidden = true;
+    cntRooms.hidden = true;
     call.hidden = false;
     await getMedia();
     makeConnection();
@@ -117,11 +119,15 @@ async function handleWelcomeSubmit(event) {
     const input = welcome.querySelector("input");
     await initCall();
     socket.emit("join_room", input.value);
+    const paintRoomName = call.querySelector("h3");
     roomName = input.value;
+    paintRoomName.innerText = `Room: ${roomName}`;
     input.value = "";
 };
 
 welcomeForm.addEventListener("submit", handleWelcomeSubmit);
+
+
 
 // Socket Code
 
@@ -153,6 +159,19 @@ myPeerConnection.setRemoteDescription(answer);
   
 socket.on("ice", (ice) => {
     myPeerConnection.addIceCandidate(ice);
+});
+
+socket.on("room_change", (rooms) => {
+    const roomList = cntRooms.querySelector("ul");
+    roomList.innerHTML = "";
+    if(rooms.length === 0){
+        return;
+    }
+    rooms.forEach((room) => {
+        const span = document.createElement("p");
+        span.innerText= `🍒 ${room}`;
+        roomList.appendChild(span);
+    });
 });
 
 // RTC Code

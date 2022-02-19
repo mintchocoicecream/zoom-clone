@@ -15,10 +15,26 @@ app.get("/*", (_, res) => res.redirect("/"));
 const server = http.createServer(app);
 const io = new Server(server)
 
+function publicRooms(){
+    const {sockets: {adapter: {sids, rooms}}} = io;
+    const publicRooms = [];
+    rooms.forEach((_,key) => {
+        if(sids.get(key) === undefined){
+            publicRooms.push(key);
+        }
+    })
+    return publicRooms;
+}
+
+function countRoom(roomName){
+    return io.sockets.adapter.rooms.get(roomName)?.size;
+}
+
 io.on("connection", socket => {
     socket.on("join_room", (roomName) => {
         socket.join(roomName);
-        socket.to(roomName).emit("welcome");
+        socket.to(roomName).emit("welcome", countRoom(roomName));
+        io.sockets.emit("room_change", publicRooms());
     });
     socket.on("offer", (offer, roomName) => {
         socket.to(roomName).emit("offer", offer);
@@ -29,6 +45,10 @@ io.on("connection", socket => {
     socket.on("ice", (ice, roomName) => {
         socket.to(roomName).emit("ice", ice);
     });
+
+    socket.on("disconnect", () => {
+        io.sockets.emit("room_change", publicRooms());
+    })
 });
 
 const handleListen = () => console.log(`Listening on http://localhost:3000`);
