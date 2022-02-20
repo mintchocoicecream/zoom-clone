@@ -93,6 +93,58 @@ async function handleCameraChange(){
     }
 }
 
+muteBtn.addEventListener("click", handleMuteClick);
+cameraBtn.addEventListener("click", handleCameraClick);
+camerasSelect.addEventListener("input", handleCameraChange);
+
+// Nickname
+
+const nickDiv = document.getElementById("info");
+const nickBtn = nickDiv.querySelector("button");
+const modal = document.getElementById("nickForm");
+const closeDiv = document.getElementById("close");
+const closeBtn = closeDiv.querySelector("span");
+const container = document.getElementById("container");
+const nickInputBtn = container.querySelector("button");
+const mySection = document.getElementById("myStream");
+
+
+function handleNickClick(event){
+    modal.style.display='block'
+    if (event.target == modal) {
+        modal.style.display = "none";
+    };
+}
+
+function handleCloseClick(){
+    modal.style.display = "none";
+}
+
+function handleNickSave(event){
+    event.preventDefault();
+    const input = container.querySelector("input");
+    const value = input.value;
+    socket.emit("nickname", value, roomName);
+    const shownick = mySection.querySelector("h3");
+    shownick.innerText = `👽 ${input.value}`;
+    modal.style.display = "none";
+}
+
+function handleShowNick(nick){
+    const recievedNick = nick;
+    console.log(nick);
+    const peerStream = document.getElementById("peerStream");
+    const peersNick = peerStream.querySelector("h3");
+    peersNick.innerText = `👽 ${recievedNick}`;
+}
+
+
+nickInputBtn.addEventListener("click", handleNickSave);
+closeBtn.addEventListener("click", handleCloseClick);
+nickBtn.addEventListener("click", handleNickClick);
+
+// Chat
+
 const addMsgBtn = document.getElementById("addMsg");
 const chatWindow = document.getElementById("chat");
 const msgForm = chatWindow.querySelector("form");
@@ -111,6 +163,8 @@ function handleAddMsgBtn(){
     }
 }
 
+const scrollDiv = document.getElementById('scroll');
+
 function handleMsgSubmit(event){
     event.preventDefault();
     const input = chatWindow.querySelector("input");
@@ -122,28 +176,42 @@ function handleMsgSubmit(event){
     msg.innerText = value;
     msgdiv.appendChild(msg);
     msgContainer.appendChild(msgdiv);
+    scrollDiv.scrollTop = scrollDiv.scrollHeight;
     myDataChannel.send(value);
     input.value = "";
 }
-
 
 function recieveMsg(message){
     const recievedMsg = message.data;
     const msgContainer = chatWindow.querySelector("div");
     const msgdiv = document.createElement("div");
+    const msgSpan = document.createElement("span");
     const msg = document.createElement("p");
     msgdiv.className = "yourmsg";
     msg.innerText = recievedMsg;
+    msgdiv.appendChild(msgSpan);
     msgdiv.appendChild(msg);
     msgContainer.appendChild(msgdiv);
+    scrollDiv.scrollTop = scrollDiv.scrollHeight;
+}
+
+function addMessage(message){
+    const msgContainer = chatWindow.querySelector("div");
+    const msgdiv = document.createElement("div");
+    const msgSpan = document.createElement("span");
+    const msg = document.createElement("p");
+    msgdiv.className = "announce";
+    msg.innerText = message;
+    msgdiv.appendChild(msgSpan);
+    msgdiv.appendChild(msg);
+    msgContainer.appendChild(msgdiv);
+    scrollDiv.scrollTop = scrollDiv.scrollHeight;
 }
 
 
 addMsgBtn.addEventListener("click", handleAddMsgBtn);
 
-muteBtn.addEventListener("click", handleMuteClick);
-cameraBtn.addEventListener("click", handleCameraClick);
-camerasSelect.addEventListener("input", handleCameraChange);
+
 
 
 // Welcome Form (join a room)
@@ -166,7 +234,7 @@ async function handleWelcomeSubmit(event) {
     socket.emit("join_room", input.value);
     const paintRoomName = call.querySelector("h3");
     roomName = input.value;
-    paintRoomName.innerText = `Room: ${roomName}`;
+    paintRoomName.innerText = `🍒 Room ${roomName} 🍒`;
     input.value = "";
 };
 
@@ -180,7 +248,6 @@ socket.on("welcome", async ()=>{
     myDataChannel = myPeerConnection.createDataChannel("chat");
     msgForm.addEventListener("submit", handleMsgSubmit);
     myDataChannel.addEventListener("message", recieveMsg);
-    console.log("data channel here");
     const offer = await myPeerConnection.createOffer();
     myPeerConnection.setLocalDescription(offer);
     socket.emit("offer", offer, roomName);
@@ -208,6 +275,12 @@ socket.on("ice", (ice) => {
     myPeerConnection.addIceCandidate(ice);
 });
 
+socket.on("nickname", handleShowNick);
+
+socket.on("bye", (leftuser) => {
+    addMessage(`👻 ${leftuser} lefted 👻`);
+});
+
 socket.on("room_change", (rooms) => {
     const roomList = cntRooms.querySelector("ul");
     roomList.innerHTML = "";
@@ -220,8 +293,6 @@ socket.on("room_change", (rooms) => {
         roomList.appendChild(span);
     });
 });
-
-// socket.on("new_message", addMessage);
 
 // RTC Code
 function makeConnection() {

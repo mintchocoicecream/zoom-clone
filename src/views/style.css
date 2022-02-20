@@ -47,11 +47,13 @@
 
 /* header */
 #title h1 {
-    /* color: #fff; */
     font-family: 'Tourney', cursive;
     font-size: 60px;
 }
 
+main {
+    padding-bottom: 150px;
+}
 /* welcome */
 #welcome form {
     border: 5px solid var(--color-bg-secondary);
@@ -148,6 +150,141 @@
     padding: 10px;
 }
 
+#info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#info h3{
+    font-family: 'Tourney', cursive;
+    font-size: 30px;
+    margin: 0;
+}
+
+#info button {
+    display: inline-block;
+    border-radius: var(--border-radius);
+    color: #fff;
+    background-color: #f4511e;
+    border: 2px solid #000;
+    text-align: center;
+    font-size: medium;
+    font-weight: bold;
+    font-family: var(--font-family);
+    padding: 0.2rem 0.8rem;
+    margin: 0.5rem 0;
+    margin-left: 10px;
+    transition: all 0.5s;
+    cursor: pointer;
+    line-height: var(--line-height);
+}
+  
+#info button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+  
+#info button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+  
+#info button:hover span {
+    padding-right: 25px;
+}
+  
+#info button:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+/* modal */
+
+#nickForm {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+}
+
+#nickForm form{
+    background-color: #000000c2;
+    margin: 5% auto 15% auto;
+    border: 3px solid #ffffffa6;
+    border-radius: 15px;
+    width: 40%;
+    padding: 10px;
+}
+
+#container {
+    text-align: center;
+}
+
+#nickForm input{
+    width: inherit;
+    font-family: var(--font-family);
+    font-weight: 600;
+}
+
+#nickForm input[type=text]:focus {
+    border: 5px solid #f4511e;
+    font-family: var(--font-family);
+}
+
+/* The Close Button (x) */
+
+#close {
+    text-align: center;
+    position: relative;
+}
+
+#close span{
+    position: absolute;
+    right: 10px;
+    top: 0;
+    color: rgb(211, 209, 209);
+    font-size: 35px;
+    font-weight: bold;
+  }
+  
+#close span:hover,
+#close span:focus {
+color: red;
+cursor: pointer;
+}
+  
+
+/* Add Zoom Animation */
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+  
+@-webkit-keyframes animatezoom {
+from {-webkit-transform: scale(0)} 
+to {-webkit-transform: scale(1)}
+}
+
+@keyframes animatezoom {
+from {transform: scale(0)} 
+to {transform: scale(1)}
+}
+
+
 /* gird div */
 #grid {
     display: grid;
@@ -155,7 +292,19 @@
     grid-template-columns: auto auto;
     gap: 10px;
     padding: 10px;
+    padding-top: 60px;
+    padding-bottom: 30px;
     justify-items: center;
+}
+
+#grid h3{
+    font-family:fantasy;
+    font-size: 26px;
+    text-shadow: 2px 2px #d3d3d3d0;
+    padding: 5px;
+    width: fit-content;
+    padding-right: 10px;
+    padding-left: 10px;
 }
 
 video {
@@ -164,10 +313,6 @@ video {
     background-color: #000;
 }
 
-#grid h3 {
-    grid-column-start: 1;
-    grid-column-end: 3;
-}
 
 /* options div */
 
@@ -207,18 +352,22 @@ video {
     padding: 10px;
     justify-items: center;
     border: 3px solid #fff;
-    border-radius: 1%;
+    border-radius: 10px;
     margin-top: 20px;
     margin-bottom: 50px;
+    overflow: hidden;
 }
 
 #scroll {
-    background-color: #fff;
+    /* background-color: #fff; */
     border: 3px solid #fff;
-    border-radius: 1%;
+    border-radius: 10px;
     height: 400px;
     overflow-y: scroll;
+    scroll-behavior: smooth;
     padding: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 #chat form{
@@ -234,23 +383,40 @@ video {
 .mymsg p{
     color: #fff;
     background-color: #f4511e;
-    border-radius: 10%;
+    border-radius: 8px;
     width: fit-content;
-    padding: 0.8em;
+    padding: 0.5em;
+    padding-left: 15px;
+    padding-right: 15px;
     text-align: left;
     line-height: 1.5em;
+}
+
+.yourmsg span{
+    color: rgba(0, 0, 0, 0.863);
 }
 
 .yourmsg p{
     color: #000;
+    background-color: rgba(255, 255, 255, 0.705);
     border: 2px solid #f4511e;
-    border-radius: 10%;
+    border-radius: 8px;
     width: fit-content;
-    padding: 0.8em;
+    padding: 0.5em;
+    padding-left: 15px;
+    padding-right: 15px;
     text-align: left;
     line-height: 1.5em;
 }
 
+.announce {
+    text-align: center;
+}
+.announce p{
+    font-family: var(--font-family);
+    background-color: rgba(46, 46, 46, 0.575);
+    color: white;
+}
 
 
 #chat input[type=text] {
@@ -258,7 +424,15 @@ video {
     margin: 8px 0;
     box-sizing: border-box;
     width: inherit;
+    font-family: var(--font-family);
+    font-weight: 600;
 }
+
+#chat input[type=text]:focus {
+    border: 5px solid #f4511e;
+    font-family: var(--font-family);
+}
+
 
 #chat button {
     display: inline-block;
@@ -321,7 +495,6 @@ header,
 main {
     margin: 0 auto;
     max-width: var(--width-content);
-    padding: 1rem 0rem;
 }
 
 hr {
@@ -566,8 +739,7 @@ button:hover {
 }
 
 a b,
-a strong,
-button {
+a strong{
     background-color: var(--color-link);
     border: 2px solid var(--color-link);
     display: inline-block;

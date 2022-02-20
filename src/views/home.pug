@@ -24,15 +24,27 @@ html(lang="en")
                 h4 Open Rooms
                 ul
             div#call
+                div#info
+                    h3 Room
+                    button(style="vertical-align:middle") 
+                        span + Nickname
+                    div#nickForm
+                        form.animate
+                            div#close 
+                                span x
+                            div#container 
+                                input(type="text", placeholder="Nickname", required)
+                                button Save
                 div#grid
-                    h3
                     div#myStream
+                        h3 👻
                         video#myFace(autoplay, playsinline, width="400", height="400")
                         div#options
                             button#mute Mute
                             button#camera Turn Camera Off
                             select#cameras
                     div#peerStream
+                        h3 👻
                         video#peerFace(autoplay, playsinline, width="400", height="400")
                         div#options
                             button#addMsg + Send Message

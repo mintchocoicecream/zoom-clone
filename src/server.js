@@ -47,10 +47,15 @@ io.on("connection", socket => {
         socket.to(roomName).emit("ice", ice);
     });
 
-    // socket.on("new_message", (msg, room, done) => {
-    //     socket.to(room).emit("new_message", `${socket.nickname}: ${msg}`);
-    //     done();
-    // });
+    socket.on("nickname", (nickname, roomName) => {
+        socket["nickname"] = nickname;
+        socket.to(roomName).emit("nickname", nickname);
+    });
+
+    socket.on("disconnecting", () => {
+        socket.rooms.forEach(room => 
+            socket.to(room).emit("bye", socket.nickname));
+    });
 
     socket.on("disconnect", () => {
         io.sockets.emit("room_change", publicRooms());
