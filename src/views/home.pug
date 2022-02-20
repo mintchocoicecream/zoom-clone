@@ -28,10 +28,18 @@ html(lang="en")
                     h3
                     div#myStream
                         video#myFace(autoplay, playsinline, width="400", height="400")
-                        button#mute Mute
-                        button#camera Turn Camera Off
-                        select#cameras
+                        div#options
+                            button#mute Mute
+                            button#camera Turn Camera Off
+                            select#cameras
                     div#peerStream
                         video#peerFace(autoplay, playsinline, width="400", height="400")
+                        div#options
+                            button#addMsg + Send Message
+                div#chat 
+                    div#scroll 
+                    form
+                        input(placeholder="message", required, type="text")
+                        button(style="vertical-align:middle") Send
         script(src="/socket.io/socket.io.js")
         script(src="/public/js/app.js")

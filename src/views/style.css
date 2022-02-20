@@ -89,7 +89,7 @@
     transition: all 0.5s;
     cursor: pointer;
     line-height: var(--line-height);
-  }
+}
   
 #welcome button span {
     cursor: pointer;
@@ -116,6 +116,7 @@
     right: 0;
 }
 
+/* cntrooms div */
 #cntrooms h4{
     font-family: 'Tourney', cursive;
     font-size: 30px;
@@ -140,13 +141,27 @@
     padding-left: 50px;
 }
 
+/* call div */
+
+#call {
+    display: none;
+    padding: 10px;
+}
+
 /* gird div */
 #grid {
     display: grid;
+    outline: thick dashed #f4511e;
     grid-template-columns: auto auto;
     gap: 10px;
     padding: 10px;
     justify-items: center;
+}
+
+video {
+    border: 2px solid #000;
+    border-radius: 3%;
+    background-color: #000;
 }
 
 #grid h3 {
@@ -154,6 +169,110 @@
     grid-column-end: 3;
 }
 
+/* options div */
+
+#options {
+    display: block;
+    text-align: -webkit-right;
+}
+
+#options button {
+    display: inline-block;
+    border-radius: var(--border-radius);
+    background-color: #f4511e;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: medium;
+    font-weight: bold;
+    font-family: var(--font-family);
+    padding: 0.2rem 0.8rem;
+    margin: 0.5rem 0;
+    margin-left: 10px;
+    transition: all 0.3s;
+    cursor: pointer;
+    line-height: var(--line-height);
+}
+
+#options select {
+    display: block;
+    font-size: inherit;
+    max-width: var(--width-card-wide);
+    margin-left: 10px;
+}
+
+/* chat div */
+#chat {
+    display: none;
+    padding: 10px;
+    justify-items: center;
+    border: 3px solid #fff;
+    border-radius: 1%;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+#scroll {
+    background-color: #fff;
+    border: 3px solid #fff;
+    border-radius: 1%;
+    height: 500px;
+    overflow-y: scroll;
+    padding: 10px;
+}
+
+#chat form{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.mymsg{
+    color: #fff;
+    background-color: #f4511e;
+    border-radius: 10%;
+    width: fit-content;
+    padding: 0.8em;
+    text-align: right;
+    line-height: 1.5em;
+}
+
+.yourmsg{
+    color: #000;
+    border: 2px solid #f4511e;
+    border-radius: 10%;
+    width: fit-content;
+    padding: 0.8em;
+    text-align: left;
+    line-height: 1.5em;
+}
+
+
+
+#chat input[type=text] {
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    width: inherit;
+}
+
+#chat button {
+    display: inline-block;
+    border-radius: var(--border-radius);
+    background-color: #f4511e;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: medium;
+    font-weight: bold;
+    font-family: var(--font-family);
+    padding: 0.2rem 0.8rem;
+    margin: 0.5rem 0;
+    margin-left: 10px;
+    transition: all 0.3s;
+    cursor: pointer;
+    line-height: var(--line-height);
+}
 
 /* nickname button */
 /* #nickName button {
@@ -198,7 +317,7 @@ header,
 main {
     margin: 0 auto;
     max-width: var(--width-content);
-    padding: 3rem 1rem;
+    padding: 1rem 0rem;
 }
 
 hr {
