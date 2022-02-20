@@ -111,23 +111,17 @@ function handleAddMsgBtn(){
     }
 }
 
-// function addMessage(message){
-//     const msgContainer = chatWindow.querySelector("div");
-//     const msg = document.createElement("p");
-//     msg.innerText = message;
-//     msgContainer.appendChild(msg);
-// }
-
-
 function handleMsgSubmit(event){
     event.preventDefault();
     const input = chatWindow.querySelector("input");
     const value = input.value;
     const msgContainer = chatWindow.querySelector("div");
+    const msgdiv = document.createElement("div");
     const msg = document.createElement("p");  
-    msg.className = "mymsg";
+    msgdiv.className = "mymsg";
     msg.innerText = value;
-    msgContainer.appendChild(msg);
+    msgdiv.appendChild(msg);
+    msgContainer.appendChild(msgdiv);
     myDataChannel.send(value);
     input.value = "";
 }
@@ -136,10 +130,12 @@ function handleMsgSubmit(event){
 function recieveMsg(message){
     const recievedMsg = message.data;
     const msgContainer = chatWindow.querySelector("div");
+    const msgdiv = document.createElement("div");
     const msg = document.createElement("p");
-    msg.className = "yourmsg";
+    msgdiv.className = "yourmsg";
     msg.innerText = recievedMsg;
-    msgContainer.appendChild(msg);
+    msgdiv.appendChild(msg);
+    msgContainer.appendChild(msgdiv);
 }
 
 
