@@ -132,7 +132,6 @@ function handleNickSave(event){
 
 function handleShowNick(nick){
     const recievedNick = nick;
-    console.log(nick);
     const peerStream = document.getElementById("peerStream");
     const peersNick = peerStream.querySelector("h3");
     peersNick.innerText = `👽 ${recievedNick}`;
@@ -238,9 +237,18 @@ async function handleWelcomeSubmit(event) {
     input.value = "";
 };
 
+
 welcomeForm.addEventListener("submit", handleWelcomeSubmit);
 
-
+async function clickRoomName(event){
+    event.preventDefault();
+    const value = event.target.innerText;
+    await initCall();
+    socket.emit("join_room", value);
+    const paintRoomName = call.querySelector("h3");
+    roomName = value;
+    paintRoomName.innerText = `🍒 Room ${roomName} 🍒`;
+}
 
 // Socket Code
 
@@ -288,11 +296,16 @@ socket.on("room_change", (rooms) => {
         return;
     }
     rooms.forEach((room) => {
-        const span = document.createElement("p");
-        span.innerText= `🍒 ${room}`;
-        roomList.appendChild(span);
+        const li = document.createElement("li");
+        const span = document.createElement("span");
+        span.innerText= `${room}`;
+        li.appendChild(span);
+        roomList.appendChild(li);
+        span.addEventListener("click", clickRoomName);
     });
 });
+
+
 
 // RTC Code
 function makeConnection() {
