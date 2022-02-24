@@ -111,7 +111,7 @@ const mySection = document.getElementById("myStream");
 
 function handleNickClick(event){
     modal.style.display='block'
-    if (event.target == modal) {
+    if (event.target === modal) {
         modal.style.display = "none";
     };
 }
